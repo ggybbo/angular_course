@@ -1,11 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <button
-        class="btn btn-primary"
-        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+
       <br><br>
-      <ul class="list-group">
+      <!-- <ul class="list-group">
         <li
           class="list-group-item"
           *ngFor="let number of numbers">
@@ -16,12 +14,20 @@
             {{ number }}
           </div>
         </li>
-      </ul>
-      <ng-template [ngIf]="onlyOdd">
+      </ul> -->
+      <ng-template [ngIf]="onlyOdd"> <!-- structural directive -->
         <p>Only odd</p>
       </ng-template>
       <p appBasicHighlight>Style me with basic directive!</p>
-      <p appBetterDirective>Style me with better directive!</p>
+      <!-- <p appBetterDirective [defaultColor]="'yellow'" [highlightColor]="'#f9f9f9'">Style me with better directive!</p> -->
+      <p appBetterDirective defaultColor="yellow" highlightColor="#f9f9f9">Style me with better directive!</p> 위 라인과 같다
+    </div>
+    <div *appUnless="onlyOdd">
+      <li class="list-group-item" *ngFor="let number of numbers">
+        <div *ngIf="onlyOdd" [ngClass]="{odd : false}" [ngStyle]="{backgroundColor: onlyOdd ? 'green' : 'yellow'}">
+          {{ number }}
+        </div>
+      </li>
     </div>
   </div>
 </div>
