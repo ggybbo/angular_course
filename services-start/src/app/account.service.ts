@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { LoggingService } from './logging.service';
 
 @Injectable() // Service Component에서 다른 Service를 주입받아야 하는 상황에서만 쓴다
@@ -17,6 +17,7 @@ export class AccountService {
       status: 'unknown'
     }
   ];
+  statusUpdated = new EventEmitter<string>();
 
   constructor(private logginService: LoggingService) {}
 
