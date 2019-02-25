@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Observer, Subscription } from 'rxjs';
 
-import 'rxjs/Rx';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
