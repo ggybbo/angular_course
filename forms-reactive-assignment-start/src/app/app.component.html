@@ -14,6 +14,77 @@
 
           Upon submitting the form, simply print the value to the console
       -->
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="projectData">
+          <div class="form-group">
+            <label for="name">Project Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                !signupForm.get('projectData.name').valid &&
+                signupForm.get('projectData.name').touched
+              "
+            >
+              <span
+                class="help-block"
+                *ngIf="
+                  signupForm.get('projectData.name').errors['nameIsForbidden']
+                "
+                >Test is not allowd to project name!</span
+              >
+              <span
+                class="help-block"
+                *ngIf="signupForm.get('projectData.name').errors['required']"
+                >Project name is required!</span
+              >
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              formControlName="email"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                !signupForm.get('projectData.email').valid &&
+                signupForm.get('projectData.email').touched
+              "
+            >
+              <span
+                class="help-block"
+                *ngIf="
+                  signupForm.get('projectData.email').errors['emailIsForbidden']
+                "
+                >Test email is not allowd!</span
+              >
+              <span
+                class="help-block"
+                *ngIf="signupForm.get('projectData.email').errors['required']"
+                >Email is required!</span
+              >
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select class="form-control" id="status" formControlName="status">
+            <option *ngFor="let status of formstatus" [value]="status">{{
+              status
+            }}</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
     </div>
   </div>
 </div>
