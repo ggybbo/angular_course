@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { Response } from '@angular/http';
 
 import { ServerService } from './server.service';
-import { HttpResponseBase } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,7 @@ import { HttpResponseBase } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  appName = this.serverService.getAppName();
   servers = [
     {
       name: 'Testserver',
@@ -21,9 +22,7 @@ export class AppComponent {
       id: this.generateId()
     }
   ];
-
   constructor(private serverService: ServerService) {}
-
   onAddServer(name: string) {
     this.servers.push({
       name: name,
@@ -31,27 +30,19 @@ export class AppComponent {
       id: this.generateId()
     });
   }
-  onSaveServer() {
-    this.serverService.storeServers(this.servers).subscribe(
-      response => {
-        console.log(response);
-      },
-      err => {
-        console.error(err);
-      }
-    );
+  onSave() {
+    this.serverService.storeServers(this.servers)
+      .subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
   }
-  onGetServer() {
-    this.serverService.getServers().subscribe(
-      (response: any[]) => {
-        // json method 사용
-        const data = response;
-        this.servers = data;
-      },
-      err => {
-        console.error(err);
-      }
-    );
+  onGet() {
+    this.serverService.getServers()
+      .subscribe(
+        (servers: any[]) => this.servers = servers,
+        (error) => console.log(error)
+      );
   }
   private generateId() {
     return Math.round(Math.random() * 10000);
